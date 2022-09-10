@@ -11,6 +11,27 @@
       </div>
     </div>
   </div>
+
+  <div v-if="loading">
+    <div class="container">
+      <div class="row">
+          <div class="col">
+            <spinner/>
+          </div>
+      </div>
+</div>
+  </div>
+
+  <div v-if="!loading && errorMessage">
+    <div class="container mt-3">
+      <div class="row">
+          <div class="col">
+            <p class="h3 text-danger fw-bold">{{errorMessage}}</p>
+          </div>
+      </div>
+  </div>
+  </div>
+
   <div class="container mt-3" v-if="users.length > 0" >
     <div class="row">
       <div class="col-md-6" v-for="user of users" :key="user">
@@ -28,13 +49,13 @@
                 </ul>
               </div>
               <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center">
-                <router-link to="/view/:userId" class="btn btn-success btn-sm my-1">
+                <router-link :to="`/view/${user.id}`" class="btn btn-success btn-sm my-1">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </router-link>
-                <router-link to="/edit/:userId" class="btn btn-primary btn-sm my-1">
+                <router-link :to="`/edit/${user.id}`" class="btn btn-primary btn-sm my-1">
                   <i class="fa fa-pen" aria-hidden="true"></i>
                 </router-link>
-                <button class="btn btn-danger btn-sm my-1">
+                <button class="btn btn-danger btn-sm my-1" @click="clickDeleteUser(user.id)">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </div>
@@ -49,9 +70,12 @@
 </template>
   
 <script>
+import spinner from "@/components/spinner";
   import { UsersService } from "@/composables/usersService";
 export default {
   name: "usersManager",
+  components: {spinner},
+
   data: function () {
     return {
       loading: false,
@@ -74,9 +98,23 @@ export default {
     }
   },
   methods: {
-    
+    clickDeleteUser: async function(userId){
+      try {  
+           this.loading = true;
+        let response = await UsersService.deleteUser(userId);
+        if (response) { 
+      let response = await UsersService.getAllUsers();
+      this.users = response.data;
+      this.loading = false;
+
     }
-  
+
+      } catch (error) {
+        this.errorMessage = error;
+      this.loading = false;
+      }
+    }
+  }
 };
 </script>
   

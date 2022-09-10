@@ -3,7 +3,7 @@
     ">
         <div class="row ">
             <div class="col"> 
-                  <p class="d-block m-auto d-flex align-items-lg-center  ">  
+                  <p class="d-block m-auto d-flex align-items-lg-center fw-bold ">  
                 <i class="fa fa-spinner fa-pulse fa-5x fa-fw" ></i>    
                             <span class="sr-only">Loading...</span>
                             Loading...

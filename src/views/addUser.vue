@@ -35,18 +35,18 @@
 const axios = require("axios");
 const sweetalert = require("sweetalert");
 
-
 export default {
   name: "addUser",
-  data() {
+  data: function () {
     return {
-      userName: "",
-      email: "",
-      gender: "",
-    };
+        userName: "",
+        email: "",
+        gender: "",
+      }
   },
-  methods: {
-    adduser() {
+
+  methods: {   
+      adduser() {
       const newUser = {
         name: this.userName,
         email: this.email,
@@ -64,7 +64,9 @@ export default {
           'Authorization': 'Bearer 4fd63749973da4348fc4da3496a92e5a385a727487e689d49fbac794a7b6297b'
         }
       })
+     
         .then(() => {
+          this.$router.push('/');
           sweetalert({
             text: "User added successfully",
             icon: "success",
@@ -72,7 +74,7 @@ export default {
         })
         .catch(function (error) {
           if (error.response) {
-            let errorsText ='';
+            let errorsText = '';
             error.response.data.forEach(element => {
               errorsText = errorsText + element.field + " : " + element.message + "\n";
             });
@@ -92,8 +94,8 @@ export default {
             });
           }
         });
-    },
   },
+}
 };
 
 </script>
