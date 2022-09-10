@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 import addUser from '../views/addUser.vue'
 import editUser from '../views/editUser.vue'
 import viewUser from '../views/viewUser.vue'
@@ -9,9 +8,8 @@ import PageNotFound from '../views/PageNotFound.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    redirect :"/users",
-    component: Home
+    name: 'usersManager',
+    component: usersManager
   },
   {
     path: '/addUser',
@@ -27,11 +25,6 @@ const routes = [
     path: '/view/:userId',
     name: 'viewUser',
     component: viewUser
-  },
-   {
-    path: '/users',
-    name: 'usersManager',
-    component: usersManager
   },
   {
     path: '/:pathMatch(.*)*',

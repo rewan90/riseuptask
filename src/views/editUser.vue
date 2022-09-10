@@ -63,9 +63,18 @@ export default {
   methods: {
     updateSubmit: async function () {
       try {
+        const updateUser = {
+        name: this.user.name,
+        id:this.userId,
+        email: this.user.email,
+        gender: this.user.gender,
+        status: "active",
+      };
         let response = await axios({
         method: "put",
-        url: 'https://gorest.co.in/public/v2/user/',
+        url: `https://gorest.co.in/public/v2/users/${this.userId}`,
+        data: JSON.stringify(updateUser),
+
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -73,11 +82,13 @@ export default {
         }});
         response.data;
 
-
-       
         if (response) {
+          swal({
+            text: "User updated successfully",
+            icon: "success",
+          });
           return this.$router.push('/');
-        } else {
+        }else {
           return this.$router.push(`/edit/${this.userId}`);
 
         }

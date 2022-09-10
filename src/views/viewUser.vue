@@ -9,24 +9,24 @@
   <div v-if="loading">
     <div class="container">
       <div class="row">
-          <div class="col">
-            <spinner/>
-          </div>
+        <div class="col">
+          <spinner />
+        </div>
       </div>
-</div>
+    </div>
   </div>
 
   <div v-if="!loading && errorMessage">
     <div class="container mt-3">
       <div class="row">
-          <div class="col">
-            <p class="h3 text-danger fw-bold">{{errorMessage}}</p>
-          </div>
+        <div class="col">
+          <p class="h3 text-danger fw-bold">{{errorMessage}}</p>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 
-  <div class="container mt-4" v-if="!loading && isDone()" >
+  <div class="container mt-4" v-if="!loading && isDone()">
     <div class="row align-items-cente">
       <div class="col-sm-4">
         <i class="fa fa-user-circle fa-8x"></i>
@@ -36,6 +36,8 @@
           <li class="list-group-item">Name : <span class="fw-bold">{{user.name}}</span></li>
           <li class="list-group-item">Email : <span class="fw-bold">{{user.email}}</span></li>
           <li class="list-group-item">Gender : <span class="fw-bold">{{user.gender}}</span></li>
+          <li class="list-group-item">Status : <span class="fw-bold">{{user.status}}</span></li>
+
         </ul>
       </div>
     </div>
@@ -79,9 +81,9 @@ export default {
       this.loading = false;
     }
   },
-  methods : {
-    isDone:function(){
-      return Object.keys(this.user).length >0 ;
+  methods: {
+    isDone: function () {
+      return Object.keys(this.user).length > 0;
     }
 
   }

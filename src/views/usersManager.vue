@@ -15,27 +15,27 @@
   <div v-if="loading">
     <div class="container">
       <div class="row">
-          <div class="col">
-            <spinner/>
-          </div>
+        <div class="col">
+          <spinner />
+        </div>
       </div>
-</div>
+    </div>
   </div>
 
   <div v-if="!loading && errorMessage">
     <div class="container mt-3">
       <div class="row">
-          <div class="col">
-            <p class="h3 text-danger fw-bold">{{errorMessage}}</p>
-          </div>
+        <div class="col">
+          <p class="h3 text-danger fw-bold">{{errorMessage}}</p>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 
-  <div class="container mt-3" v-if="users.length > 0" >
+  <div class="container mt-3" v-if="users.length > 0">
     <div class="row">
       <div class="col-md-6" v-for="user of users" :key="user">
-        <div class="card my-2 list-group-item-primary shadow-lg" >
+        <div class="card my-2 list-group-item-primary shadow-lg">
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-sm-4">
@@ -46,6 +46,8 @@
                   <li class="list-group-item">Name : <span class="fw-bold">{{user.name}}</span></li>
                   <li class="list-group-item">Email : <span class="fw-bold">{{user.email}}</span></li>
                   <li class="list-group-item">Gender : <span class="fw-bold">{{user.gender}}</span></li>
+                  <li class="list-group-item">Status : <span class="fw-bold">{{user.status}}</span></li>
+
                 </ul>
               </div>
               <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center">
@@ -70,11 +72,12 @@
 </template>
   
 <script>
+import swal from "sweetalert";
 import spinner from "@/components/spinner";
-  import { UsersService } from "@/composables/usersService";
+import { UsersService } from "@/composables/usersService";
 export default {
   name: "usersManager",
-  components: {spinner},
+  components: { spinner },
 
   data: function () {
     return {
@@ -90,7 +93,6 @@ export default {
       let response = await UsersService.getAllUsers();
       this.users = response.data;
       this.loading = false;
-
     }
     catch (error) {
       this.errorMessage = error;
@@ -98,21 +100,39 @@ export default {
     }
   },
   methods: {
-    clickDeleteUser: async function(userId){
-      try {  
-           this.loading = true;
-        let response = await UsersService.deleteUser(userId);
-        if (response) { 
-      let response = await UsersService.getAllUsers();
-      this.users = response.data;
-      this.loading = false;
-
-    }
-
-      } catch (error) {
-        this.errorMessage = error;
-      this.loading = false;
-      }
+    clickDeleteUser: async function (userId) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this user!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+              this.loading = true;
+              let response = UsersService.deleteUser(userId);
+              if (response) {
+                UsersService.getAllUsers().then((response) => {
+                  this.users = response.data;
+                  this.loading = false;
+                });
+              }
+            } catch (error) {
+              swal({
+                text: error.message,
+                icon: "error",
+              });
+              this.loading = false;
+            }
+            swal("User has been deleted!", {
+              icon: "success",
+            });
+          } else {
+            swal(" User is safe!");
+          }
+        });
     }
   }
 };
