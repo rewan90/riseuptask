@@ -6,6 +6,15 @@
       </div>
     </div>
   </div>
+  <div v-if="loading">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <spinner />
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container mt-3 ">
     <div class="row">
       <div class="col-md-4 ">
@@ -37,7 +46,7 @@ import { UsersService } from "@/composables/usersService";
 import spinner from "@/components/spinner";
 export default {
   name: "editUser",
-  components: { spinner },
+  components: {spinner},
 
   data() {
     return {
@@ -47,6 +56,8 @@ export default {
       loading: false
     }
   },
+   //get api data
+
   created: async function () {
     try {
       this.loading = true;
@@ -60,6 +71,8 @@ export default {
       this.loading = false;
     }
   },
+        //update api data
+
   methods: {
     updateSubmit: async function () {
       try {

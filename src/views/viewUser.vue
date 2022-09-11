@@ -68,6 +68,7 @@ export default {
       loading: false
     }
   },
+  //get api data
   created: async function () {
     try {
       this.loading = true;

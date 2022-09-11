@@ -11,7 +11,6 @@
       </div>
     </div>
   </div>
-
   <div v-if="loading">
     <div class="container">
       <div class="row">
@@ -87,6 +86,7 @@ export default {
 
     }
   },
+  //get api data
   created: async function () {
     try {
       this.loading = true;
@@ -100,6 +100,7 @@ export default {
     }
   },
   methods: {
+    //delete user
     clickDeleteUser: async function (userId) {
       swal({
         title: "Are you sure?",

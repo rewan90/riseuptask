@@ -1,31 +1,29 @@
 <template>
-
-  <div class="container mt-3 ">
+  <div class="container mt-3">
     <div class="row">
       <div class="col">
         <p class="h3 text-primary fw-bold">Add User</p>
       </div>
     </div>
   </div>
-  <div class="container mt-3 ">
+  <div class="container mt-3">
     <div class="row">
-      <div class="col-md-4 ">
+      <div class="col-md-4">
         <form @submit.prevent>
           <div class="mb-2">
-            <input type="text" placeholder="Name" class="form-control" v-model="userName">
+            <input type="text" placeholder="Name" class="form-control" v-model="userName" required />
           </div>
           <div class="mb-2">
-            <input type="email" placeholder="Email" class="form-control" v-model="email">
+            <input type="email" placeholder="Email" class="form-control" v-model="email" required />
           </div>
           <div class="mb-2">
-            <input type="radio" v-model="gender" value="male"> Male
-            <input type="radio" v-model="gender" value="female"> Female
+            <input type="radio" v-model="gender" value="male" /> Male
+            <input type="radio" v-model="gender" value="female" /> Female
           </div>
           <div class="mb-2">
-            <input type="submit" class="btn btn-primary" @click="adduser" value="Create">
+            <input type="submit" class="btn btn-primary" @click="adduser" value="Create" />
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -39,20 +37,21 @@ export default {
   name: "addUser",
   data: function () {
     return {
-        userName: "",
-        email: "",
-        gender: "",
-      }
+      userName: "",
+      email: "",
+      gender: "",
+    };
   },
 
-  methods: {   
-      adduser() {
+  methods: {
+    adduser() {
       const newUser = {
         name: this.userName,
         email: this.email,
         gender: this.gender,
         status: "active",
       };
+      //get api data
       const baseURL = "https://gorest.co.in/";
       axios({
         method: "post",
@@ -60,13 +59,13 @@ export default {
         data: JSON.stringify(newUser),
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
-          'Authorization': 'Bearer 4fd63749973da4348fc4da3496a92e5a385a727487e689d49fbac794a7b6297b'
-        }
+          Accept: "application/json",
+          Authorization:
+            "Bearer 4fd63749973da4348fc4da3496a92e5a385a727487e689d49fbac794a7b6297b",
+        },
       })
-     
         .then(() => {
-          this.$router.push('/');
+          this.$router.push("/");
           sweetalert({
             text: "User added successfully",
             icon: "success",
@@ -74,9 +73,10 @@ export default {
         })
         .catch(function (error) {
           if (error.response) {
-            let errorsText = '';
-            error.response.data.forEach(element => {
-              errorsText = errorsText + element.field + " : " + element.message + "\n";
+            let errorsText = "";
+            error.response.data.forEach((element) => {
+              errorsText =
+                errorsText + element.field.toUpperCase() + " : " + element.message + "\n";
             });
             sweetalert({
               text: errorsText,
@@ -94,8 +94,7 @@ export default {
             });
           }
         });
+    },
   },
-}
 };
-
 </script>
