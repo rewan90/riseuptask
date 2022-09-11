@@ -37,7 +37,6 @@
           <li class="list-group-item">Email : <span class="fw-bold">{{user.email}}</span></li>
           <li class="list-group-item">Gender : <span class="fw-bold">{{user.gender}}</span></li>
           <li class="list-group-item">Status : <span class="fw-bold">{{user.status}}</span></li>
-
         </ul>
       </div>
     </div>

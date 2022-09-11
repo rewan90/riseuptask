@@ -1,12 +1,23 @@
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import {shallowMount} from '@vue/test-utils';
+import NavBar from '../../src/components/NavBar.vue'
+import App from '../../src/App.vue'
+import router from '../../src/router/index.js'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg }
+
+
+describe('App.vue', () => {
+  it('NavBar component\'s exist', async () => {
+    router.push('/')
+    await router.isReady()
+    const wrapper = shallowMount(App, {
+      global: {
+        plugins: [router]
+      }
     })
-    expect(wrapper.text()).toMatch(msg)
+    expect(wrapper.findComponent(NavBar).exists()).toBe(true)
   })
 })
+
+
+
+

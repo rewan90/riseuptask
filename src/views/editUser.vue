@@ -18,9 +18,10 @@
   <div class="container mt-3 ">
     <div class="row">
       <div class="col-md-4 ">
-        <Form @submit.prevent="updateSubmit()">
+        <Form @submit.prevent="updateSubmit">
           <div class="mb-2">
             <input type="text" placeholder="Name" class="form-control" v-model="user.name" required>
+          
           </div>
           <div class="mb-2">
             <input type="email" placeholder="Email" class="form-control" v-model="user.email" required>
@@ -30,7 +31,7 @@
             <input type="radio" v-model="user.gender" value="female"> Female
           </div>
           <div class="mb-2">
-            <input type="submit" class="btn btn-primary" @click="editUser" value="Update">
+            <input type="submit" class="btn btn-primary" value="Update">
           </div>
         </Form>
 

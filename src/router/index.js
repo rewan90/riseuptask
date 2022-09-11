@@ -6,6 +6,7 @@ import usersManager from '../views/usersManager.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 
 const routes = [
+
   {
     path: '/',
     name: 'usersManager',
