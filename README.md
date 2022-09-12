@@ -71,12 +71,12 @@ GET /public/v2/users
   GET https://gorest.co.in/public/v2/users/${userId}
 ```
 
-### must add Authorization
+### must add Authorization in headers
 ```
 
 
 headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          'Authorization': 'Bearer 4fd63749973da4348fc4da3496a92e5a385a727487e689d49fbac794a7b6297b'
+          'Authorization': ''
         }
